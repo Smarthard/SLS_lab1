@@ -1,5 +1,7 @@
 #!/bin/sh
 
+exec 2>>~/lab1_err
+
 p_help() {
 	eval "echo '=== MENU ===
 1|pwd) 		print working directory
