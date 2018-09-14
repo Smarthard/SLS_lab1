@@ -37,7 +37,19 @@ while : ; do
 			;;
 		5|rm)
 			read files
-			eval "rm $files"
+			while true; do
+				echo -n "Are you sure you want to remove this files? [y/n] "
+				read confirm
+				case $confirm in
+					y|Y) 
+						eval "rm $files"
+						break
+						;;
+					n|N)
+						break
+						;;
+				esac
+			done
 			;;
 		6|exit)
 			break;;
