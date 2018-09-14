@@ -1,7 +1,8 @@
 #!/bin/sh
 
 p_help() {
-	eval "echo '1|pwd) 		print working directory
+	eval "echo '=== MENU ===
+1|pwd) 		print working directory
 2|cd)		change working directory
 3|ls)		list files
 4|touch)	create files
@@ -41,5 +42,5 @@ while : ; do
 		6|exit)
 			break;;
 	esac
-	
+	echo	
 done
