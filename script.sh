@@ -3,13 +3,12 @@
 exec 2>>~/lab1_err
 
 p_help() {
-	eval "echo '=== MENU ===
-1|pwd) 		print working directory
-2|cd)		change working directory
-3|ls)		list files
-4|touch)	create files
-5|rm)		remove files
-6|exit)		exit script'"
+	eval "echo '1. print working directory
+2. change working directory
+3. list files
+4. create files
+5. remove files
+6. exit script'"
 }
 
 menu_off=false
@@ -56,5 +55,4 @@ while : ; do
 		6|exit)
 			break;;
 	esac
-	echo	
 done
