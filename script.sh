@@ -59,7 +59,7 @@ while : ; do
 		5|rm)
 			read files
 			while true; do
-				echo -n "Вы уверенны, что хотите удалить файлы? [y/n]"
+				echo "Вы уверенны, что хотите удалить файлы? [y/n]"
 				read confirm
 				case $confirm in
 					y|Y) 
