@@ -3,12 +3,12 @@
 exec 2>>~/lab1_err
 
 p_help() {
-	eval "echo '1. print working directory
-2. change working directory
-3. list files
-4. create files
-5. remove files
-6. exit script'"
+	eval "echo '1. Напечатать имя текущего каталога 
+2. Сменить текущий каталог
+3. Напечатать содержимое текущего каталога
+4. Создать файл
+5. Удалить файл
+6. Выйти из программы'"
 }
 
 menu_off=false
