@@ -1,5 +1,7 @@
 #!/bin/sh
 
+exec 2>>~/lab1_err
+
 p_help() {
 	local menu=(	"Напечатать имя текущего каталога" 
 			"Сменить текущий каталог"
@@ -14,6 +16,13 @@ p_help() {
 	done
 }
 
+e_handle() {
+	err=$?
+	if [ $err -ne 0 ];
+		then echo "Ошибка выполнения команды #$err"
+	fi
+}
+
 menu_off=false
 bash_like=false
 
@@ -26,27 +35,37 @@ while : ; do
 	case $command in
 		1|pwd)
 			echo `pwd`
+
+			e_handle
 			;;
 		2|cd)	
-			echo "type directory path" 
+			echo "Введите путь"
 			read dir
 			eval "cd $dir"
+			
+			e_handle
 			;;
 		3|ls)
 			ls -a
+
+			e_handle
 			;;
 		4|touch)
 			read -r files
-			eval "touch $files"
+			eval "touch '$files'"
+			
+			e_handle
 			;;
 		5|rm)
 			read files
 			while true; do
-				echo -n "Are you sure you want to remove this files? [y/n] "
+				echo -n "Вы уверенны, что хотите удалить файлы? [y/n]"
 				read confirm
 				case $confirm in
 					y|Y) 
 						eval "rm $files"
+					
+						e_handle
 						break
 						;;
 					n|N)
@@ -57,5 +76,7 @@ while : ; do
 			;;
 		6|exit)
 			break;;
+		*)
+			echo "Неверная команда"
 	esac
 done
