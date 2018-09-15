@@ -52,7 +52,7 @@ while : ; do
 			;;
 		4|touch)
 			read -r files
-			eval "touch '$files'"
+			eval "touch $files"
 			
 			e_handle
 			;;
