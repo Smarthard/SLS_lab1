@@ -11,13 +11,6 @@ p_help() {
 	echo "6. Выйти из программы"
 }
 
-e_handle() {
-	err=$?
-	if [ $err -ne 0 ];
-		then echo "Ошибка выполнения команды #$err" | tee $log
-	fi
-}
-
 while : ; do
 
 	p_help
@@ -26,27 +19,19 @@ while : ; do
 
 	case $command in
 		1|pwd)
-			echo `pwd`
-
-			e_handle
+			echo `pwd` | tee $log
 			;;
 		2|cd)	
 			echo "Введите путь"
 			read dir
-			eval "cd $dir"
-			
-			e_handle
+			eval "cd $dir | tee $log"
 			;;
 		3|ls)
-			ls -a
-
-			e_handle
+			ls -a | tee $log
 			;;
 		4|touch)
 			read -r files
-			eval "touch $files"
-			
-			e_handle
+			eval "touch $files | tee $log"
 			;;
 		5|rm)
 			read files
@@ -55,9 +40,7 @@ while : ; do
 				read confirm
 				case $confirm in
 					y|Y) 
-						eval "rm $files"
-					
-						e_handle
+						eval "rm $files | tee $log"
 						break
 						;;
 					n|N)
