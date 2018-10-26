@@ -1,16 +1,13 @@
 #!/bin/sh
 
-declare -a dirs_1l
-dirs_1l=`find -maxdepth 1 -type d | grep -v ^.$`
+declare -a dirs=`find "$1" -maxdepth 1 -type d -print | egrep -v '^[.]{,2}$'`
+declare -a targets
 
-declare dtargets
-for dir in $dirs; do
-	check=`find "$dir" -maxdepth 1 -type d`
-	if [[ $? -eq 0 ]] && [[ ! -z $check ]]; then
-		dtargets+="$dir"$'\n'
+for dir in ${dirs[@]}; do
+	check=`find "$dir" -maxdepth 1 -type d | grep -v "^$dir$"`
+	if [ $? -eq 0 -a -n "$check" ]; then
+		targets+="$dir"$'\n'
 	fi
 done
 
-echo "$dirs_1l" 
-echo
-echo "$dtargets"
+echo "$targets"
