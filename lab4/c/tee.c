@@ -79,7 +79,10 @@ int main(int argc, char **argv)
 
 	for (int i = 1; i < argc - optc - 1; i++)
 	{
-		fclose(fds[i]);
+		if (fds[i] != NULL)
+		{
+			fclose(fds[i]);
+		}
 	}
 
 	return EXIT_SUCCESS;
