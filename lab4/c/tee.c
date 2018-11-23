@@ -10,7 +10,7 @@
 
 const char *OPTIONS = "ai";
 
-static void dummy_handler(int signo) {}
+static void dummy_handler() {} 
 
 int main(int argc, char **argv)
 {
@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 	char *frights = "w+";
 
 	int opt;
-	size_t optc = 0;
+	int optc = 0;
 	while ( (opt = getopt(argc, argv, OPTIONS)) > -1)
 	{
 		optc++;
