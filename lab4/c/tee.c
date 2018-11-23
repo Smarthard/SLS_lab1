@@ -37,11 +37,12 @@ int main(int argc, char **argv)
 	int missed = 1; // missing argv[0]
 	for (int i = 1; i < argc; i++)
 	{	
-		if (strcmp(argv[i], "-a") != 0 && strcmp(argv[i], "-i") != 0)
+		if ( strcmp(argv[i], "-a") != 0 && strcmp(argv[i], "-i") != 0 &&
+			strcmp(argv[i], "-ai") != 0 && strcmp(argv[i], "-ia") != 0 )
 		{
 			fds[i - missed] = fopen(argv[i], frights);
 
-			if (fds[i - missed] == NULL)
+			if (errno)
 			{
 			    perror(strerror(errno));
 			}
