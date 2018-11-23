@@ -1,6 +1,6 @@
 CC=gcc
 BDIR=./build
-CFLAGS=-Wall 
+CFLAGS=-Wall -std=gnu99 -pedantic -Werror -Wextra
 TARGET=tee
 SRC=$(wildcard *.c)
 OBJ=$(SRC:%.c=build/%.o)
