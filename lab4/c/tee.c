@@ -4,10 +4,11 @@
 #include <string.h>
 #include <signal.h>
 #include <unistd.h>
+#include <errno.h>
 
 #define BUFSIZE 512
 
-const char *OPTIONS = "ai";
+const char *OPTIONS = "ai-";
 
 static void dummy_handler(int signo) {}
 
@@ -16,7 +17,8 @@ int main(int argc, char **argv)
 	FILE **fds = NULL;
 	char *frights = "w+";
 
-	int opt, optc = 0;
+	int opt;
+	size_t optc = 0;
 	while ( (opt = getopt(argc, argv, OPTIONS)) > -1)
 	{
 		optc++;
@@ -28,16 +30,24 @@ int main(int argc, char **argv)
 			case 'i':
 				signal(SIGINT, dummy_handler);
 				break;
+            case '-':
+            default:
+                break;
 		}
 	}
-	fds = (FILE **) calloc(argc - optc - 1, sizeof(FILE));
+	fds = (FILE **) calloc(argc - optc - 1, sizeof(FILE *));
 	
-	int missed = 0;
-	for (int i = 0; i < argc; i++)
+	int missed = 1; // missing argv[0]
+	for (int i = 1; i < argc; i++)
 	{	
-		if (!strcmp(argv[i], "-a") && !strcmp(argv[i], "-i"))
+		if (strcmp(argv[i], "-a") != 0 && strcmp(argv[i], "-i") != 0)
 		{
 			fds[i - missed] = fopen(argv[i], frights);
+
+			if (fds[i - missed] == NULL)
+			{
+			    perror(strerror(errno));
+			}
 		}
 		else
 		{
