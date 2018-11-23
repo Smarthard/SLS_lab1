@@ -8,7 +8,7 @@
 
 #define BUFSIZE 512
 
-const char *OPTIONS = "ai-";
+const char *OPTIONS = "ai";
 
 static void dummy_handler(int signo) {}
 
@@ -30,9 +30,6 @@ int main(int argc, char **argv)
 			case 'i':
 				signal(SIGINT, dummy_handler);
 				break;
-            case '-':
-            default:
-                break;
 		}
 	}
 	fds = (FILE **) calloc(argc - optc - 1, sizeof(FILE *));
